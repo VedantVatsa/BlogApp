@@ -1,0 +1,332 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply h-[100vh] w-full m-0 p-0 overflow-x-hidden;
+  }
+
+  #root {
+    @apply h-[100vh] w-full flex flex-col;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-gray-50 to-gray-100;
+  }
+}
+
+@layer components {
+  .glass-effect {
+    @apply bg-white bg-opacity-70 backdrop-blur-lg border border-white border-opacity-20 shadow-lg;
+  }
+
+  .btn-modern {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply btn-modern bg-gradient-to-r from-primary-500 to-accent-500 text-white hover:from-primary-600 hover:to-accent-600;
+  }
+
+  .input-modern {
+    @apply w-full p-4 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+
+  .input-primary {
+    @apply w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200;
+  }
+
+  .blog-content {
+    @apply prose prose-lg max-w-none;
+    @apply max-w-[900px] mx-auto;
+  }
+
+  .blog-content img {
+    @apply max-w-full h-auto rounded-lg shadow-lg my-4;
+    @apply my-8 rounded-lg shadow-lg mx-auto;
+    max-width: 100%;
+  }
+
+  .blog-content iframe.ql-video {
+    @apply w-full rounded-lg shadow-lg my-4;
+    aspect-ratio: 16 / 9;
+  }
+
+  .media-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-4 my-4;
+  }
+
+  .rich-text-editor {
+    @apply mb-4;
+  }
+
+  .rich-text-editor .ql-toolbar {
+    @apply bg-gray-50 border border-gray-200 rounded-t-lg sticky top-0 z-10;
+  }
+
+  .rich-text-editor .ql-container {
+    @apply border border-gray-200 border-t-0 rounded-b-lg min-h-[200px];
+    @apply font-sans;
+  }
+
+  .rich-text-editor .ql-editor {
+    @apply min-h-[200px] text-base;
+    @apply min-h-[200px] text-base leading-relaxed;
+  }
+
+  /* Style for uploaded images and videos */
+  .rich-text-editor .ql-editor img,
+  .rich-text-editor .ql-editor video {
+    @apply max-w-full h-auto rounded-lg my-4 mx-auto;
+  }
+
+  /* Add custom styling for resizable images */
+  .resize-handle {
+    @apply transition-all duration-200 hover:shadow-lg hover:ring-2 hover:ring-primary-500/20;
+  }
+
+  .rich-text-editor img.resize-handle {
+    @apply my-4 mx-auto rounded-lg;
+    height: auto !important; /* Maintain aspect ratio */
+  }
+
+  /* Improve editor toolbar appearance */
+  .ql-toolbar {
+    @apply sticky top-0 z-10 bg-white border-gray-200 rounded-t-lg !important;
+  }
+
+  .ql-container {
+    @apply border-gray-200 rounded-b-lg overflow-hidden !important;
+  }
+
+  /* Image resize styles */
+  .rich-text-editor img {
+    @apply max-w-full rounded-lg my-4 transition-all duration-200;
+  }
+
+  .rich-text-editor img:hover {
+    @apply ring-2 ring-blue-500/20;
+  }
+
+  /* Hide resize handle when not needed */
+  .resize-handle {
+    @apply opacity-0 transition-opacity duration-200;
+  }
+
+  /* Show resize handle on hover */
+  .rich-text-editor img:hover + .resize-handle,
+  .resize-handle:hover {
+    @apply opacity-100;
+  }
+
+  .rich-text-editor .ql-editor img {
+    @apply max-w-full h-auto rounded-lg shadow-md my-4 mx-auto;
+    max-height: 500px;
+    object-fit: contain;
+  }
+
+  .rich-text-editor .ql-editor video {
+    @apply max-w-full h-auto rounded-lg shadow-md my-4 mx-auto;
+  }
+
+  .rich-text-editor .ql-editor h1 {
+    @apply text-3xl font-bold mb-4;
+  }
+
+  .rich-text-editor .ql-editor h2 {
+    @apply text-2xl font-bold mb-3;
+  }
+
+  .rich-text-editor .ql-editor h3 {
+    @apply text-xl font-bold mb-2;
+  }
+
+  .rich-text-editor .ql-editor p {
+    @apply mb-4;
+  }
+
+  .rich-text-editor .ql-editor ul,
+  .rich-text-editor .ql-editor ol {
+    @apply ml-4 mb-4;
+  }
+
+  /* Image styling in editor */
+  .rich-text-editor .ql-editor img {
+    @apply max-w-[500px] rounded-lg shadow-md transition-all duration-300;
+    margin: 1rem;
+  }
+
+  .rich-text-editor .ql-editor img[style*="float: left"] {
+    @apply mr-6 ml-0 my-2 max-w-[300px];
+    float: left;
+  }
+
+  .rich-text-editor .ql-editor img[style*="float: right"] {
+    @apply ml-6 mr-0 my-2 max-w-[300px];
+    float: right;
+  }
+
+  .rich-text-editor .ql-editor img[style*="display: block"] {
+    @apply mx-auto my-6 max-w-[500px];
+  }
+
+  /* Image toolbar styling */
+  .image-toolbar {
+    @apply sticky top-2 z-10 bg-white/80 backdrop-blur-sm p-2 rounded-lg shadow-sm;
+  }
+
+  /* Clear floats after images */
+  .rich-text-editor .ql-editor p {
+    @apply clear-both;
+  }
+
+  /* Ensure text wraps around floated images */
+  .rich-text-editor .ql-editor {
+    @apply overflow-hidden;
+  }
+
+  .blog-image {
+    @apply max-w-full h-auto my-4 rounded-lg;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .blog-content img[data-size="full"] {
+    @apply w-full max-h-[600px] object-cover;
+  }
+
+  .blog-content img[data-size="medium"] {
+    @apply w-2/3 max-h-[500px] object-contain;
+  }
+
+  .blog-content img[data-size="small"] {
+    @apply w-1/2 max-h-[400px] object-contain;
+  }
+
+  /* Blog typography */
+  .blog-content h1 {
+    @apply text-4xl font-bold mb-6 mt-12;
+  }
+
+  .blog-content h2 {
+    @apply text-3xl font-bold mb-4 mt-8;
+  }
+
+  .blog-content p {
+    @apply text-lg leading-relaxed mb-6 text-gray-700;
+  }
+
+  .blog-content blockquote {
+    @apply pl-6 border-l-4 border-primary-500 italic my-6 text-gray-600;
+  }
+
+  /* Preview styles */
+  .blog-preview {
+    @apply prose-lg max-w-[900px] mx-auto bg-white p-8 rounded-xl shadow-sm;
+  }
+
+  .blog-post {
+    @apply max-w-4xl mx-auto;
+  }
+
+  .blog-content {
+    @apply max-w-none mx-auto leading-relaxed;
+  }
+
+  /* Remove first image since it's used in hero */
+  .blog-content > *:first-child img:first-of-type {
+    @apply hidden;
+  }
+
+  /* Rest of images in content */
+  .blog-content img {
+    @apply rounded-xl shadow-lg transition-all duration-300;
+  }
+
+  .blog-content img[data-size="full"] {
+    @apply w-full max-h-[600px] object-cover my-8;
+  }
+
+  .blog-content img[data-size="wide"] {
+    @apply w-[120%] max-h-[500px] object-cover my-8 -mx-[10%];
+  }
+
+  .blog-content img[data-size="medium"] {
+    @apply w-2/3 max-h-[400px] object-contain my-6 mx-auto;
+  }
+
+  .blog-content img[data-size="small"] {
+    @apply w-1/2 max-h-[300px] object-contain my-4 mx-auto;
+  }
+
+  /* Typography improvements */
+  .blog-content h1 {
+    @apply text-4xl font-bold mb-6 mt-12 font-display;
+  }
+
+  .blog-content h2 {
+    @apply text-3xl font-bold mb-4 mt-8 font-display;
+  }
+
+  .blog-content p {
+    @apply text-lg leading-relaxed mb-6 text-gray-700;
+  }
+
+  .blog-content blockquote {
+    @apply pl-6 border-l-4 border-primary-500 italic my-8 text-xl text-gray-700 py-2;
+  }
+
+  .blog-content pre {
+    @apply bg-gray-900 text-gray-100 rounded-lg p-4 my-6 overflow-x-auto;
+  }
+
+  /* Image captions */
+  .blog-content figure {
+    @apply my-8;
+  }
+
+  .blog-content figcaption {
+    @apply text-sm text-gray-500 text-center mt-2;
+  }
+}
+
+@layer utilities {
+  .shadow-soft {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Add these new animations */
+  @keyframes blob {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+}
