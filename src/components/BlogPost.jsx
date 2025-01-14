@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SocialFeatures from "./SocialFeatures";
 import RichTextEditor from "./RichTextEditor";
+import DOMPurify from "dompurify";
 
 export const getBlogImage = (content) => {
   const div = document.createElement("div");
@@ -185,6 +186,26 @@ const BlogPost = ({
   // Ensure we have a stable, unique ID for the post
   const postId = id || `post-${index}-${Date.now()}`;
 
+  const sanitizeContent = (content) => {
+    return DOMPurify.sanitize(content, {
+      ALLOWED_TAGS: [
+        "p",
+        "h1",
+        "h2",
+        "h3",
+        "strong",
+        "em",
+        "u",
+        "blockquote",
+        "ol",
+        "ul",
+        "li",
+        "img",
+      ],
+      ALLOWED_ATTR: ["src", "alt", "class", "data-size"],
+    });
+  };
+
   return (
     <article className="glass-effect rounded-2xl overflow-hidden animate-fade-in">
       {/* Hero section with improved image handling */}
@@ -315,7 +336,7 @@ const BlogPost = ({
             <div className="blog-content prose prose-lg">
               <div
                 className="prose prose-lg prose-img:rounded-xl prose-headings:font-display"
-                dangerouslySetInnerHTML={{ __html: content }}
+                dangerouslySetInnerHTML={{ __html: sanitizeContent(content) }}
               />
             </div>
           )}

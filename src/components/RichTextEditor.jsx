@@ -1,9 +1,31 @@
 import { useRef, useCallback, useEffect } from "react";
 import ReactQuill, { Quill } from "react-quill";
+import DOMPurify from "dompurify";
 import "react-quill/dist/quill.snow.css";
 
 const RichTextEditor = ({ value, onChange }) => {
   const quillRef = useRef(null);
+
+  // Sanitize content before rendering
+  const sanitizeContent = (content) => {
+    return DOMPurify.sanitize(content, {
+      ALLOWED_TAGS: [
+        "p",
+        "h1",
+        "h2",
+        "h3",
+        "strong",
+        "em",
+        "u",
+        "blockquote",
+        "ol",
+        "ul",
+        "li",
+        "img",
+      ],
+      ALLOWED_ATTR: ["src", "alt", "class", "data-size"],
+    });
+  };
 
   // Handle initial focus and selection
   useEffect(() => {
@@ -15,6 +37,7 @@ const RichTextEditor = ({ value, onChange }) => {
     }
   }, []);
 
+  // Modify handleImage to sanitize image URLs
   const handleImage = useCallback(() => {
     const input = document.createElement("input");
     input.setAttribute("type", "file");
@@ -36,13 +59,16 @@ const RichTextEditor = ({ value, onChange }) => {
             length: 0,
           };
 
+          // Sanitize image data URL
+          const sanitizedUrl = DOMPurify.sanitize(reader.result);
+
           // Insert a line break and the image
           editor.insertText(range.index, "\n", "user");
-          editor.insertEmbed(range.index + 1, "image", reader.result);
+          editor.insertEmbed(range.index + 1, "image", sanitizedUrl);
           editor.insertText(range.index + 2, "\n", "user");
 
           // Add image layout controls
-          const img = editor.root.querySelector(`img[src="${reader.result}"]`);
+          const img = editor.root.querySelector(`img[src="${sanitizedUrl}"]`);
           if (img) {
             img.setAttribute("data-size", "medium");
             const layouts = ["full", "wide", "medium", "small"];
@@ -133,7 +159,9 @@ const RichTextEditor = ({ value, onChange }) => {
 
   const handleChange = useCallback(
     (content, delta, source, editor) => {
-      onChange(content);
+      // Sanitize content before passing to parent
+      const sanitizedContent = sanitizeContent(content);
+      onChange(sanitizedContent);
     },
     [onChange]
   );
@@ -143,7 +171,7 @@ const RichTextEditor = ({ value, onChange }) => {
       <ReactQuill
         ref={quillRef}
         theme="snow"
-        value={value || ""}
+        value={sanitizeContent(value || "")}
         onChange={handleChange}
         modules={modules}
         formats={formats}
