@@ -4,7 +4,7 @@ import { resolve } from "path";
 
 export default defineConfig({
   plugins: [react()],
-  base: "/BlogApp/", // Note: match your repository name exactly
+  base: "/BlogApp/", // This matches your repository name
   resolve: {
     alias: {
       "@": resolve(__dirname, "./src"),
@@ -13,13 +13,5 @@ export default defineConfig({
   build: {
     outDir: "dist",
     assetsDir: "assets",
-    sourcemap: true,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ["react", "react-dom", "react-router-dom"],
-        },
-      },
-    },
   },
 });
