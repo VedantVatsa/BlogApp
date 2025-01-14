@@ -39,7 +39,7 @@ function App() {
   };
 
   return (
-    <Router basename="/blog">
+    <Router basename="/BlogApp">
       <div className="min-h-screen w-full">
         <Suspense
           fallback={
