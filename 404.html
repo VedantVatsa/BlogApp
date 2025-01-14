@@ -2,30 +2,15 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Pensieve Blog</title>
+    <title>Redirecting...</title>
     <script type="text/javascript">
-      var pathSegmentsToKeep = 1;
-
-      var l = window.location;
-      l.replace(
-        l.protocol +
-          "//" +
-          l.hostname +
-          (l.port ? ":" + l.port : "") +
-          l.pathname
-            .split("/")
-            .slice(0, 1 + pathSegmentsToKeep)
-            .join("/") +
-          "/?/" +
-          l.pathname
-            .slice(1)
-            .split("/")
-            .slice(pathSegmentsToKeep)
-            .join("/")
-            .replace(/&/g, "~and~") +
-          (l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "") +
-          l.hash
-      );
+      const segments = 1;
+      const paths = location.pathname.slice(1).split("/").slice(segments);
+      const redirectPath = `/${paths.join("/")}${location.search}${
+        location.hash
+      }`;
+      sessionStorage.redirect = redirectPath;
+      location.replace(`/BlogApp${paths.length > 0 ? "/" + paths[0] : ""}`);
     </script>
   </head>
   <body></body>
