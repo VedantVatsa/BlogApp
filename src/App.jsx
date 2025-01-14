@@ -40,6 +40,8 @@ function App() {
 
   return (
     <Router basename="/BlogApp">
+      {" "}
+      {/* This matches your repository name */}
       <div className="min-h-screen w-full">
         <Suspense
           fallback={
